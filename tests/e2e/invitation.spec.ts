@@ -13,7 +13,7 @@ test("personalized envelope opens with accessible focus and mobile navigation", 
   await expect(page.locator(".hero h1")).toBeFocused();
   await page.getByRole("navigation").getByRole("link", { name: "Acara" }).click();
   await expect(page).toHaveURL(/#acara$/);
-  await expect(page.getByRole("heading", { name: "Akad Nikah" })).toBeInViewport();
+  await expect(page.locator("#acara .section-heading")).toBeInViewport();
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
 });
 
@@ -23,7 +23,7 @@ test("guestbook makes its local-only status clear and survives reload", async ({
   await page.getByLabel("Nama kamu").fill("Tamu Pengujian");
   await page.getByLabel("Ucapan & doa").fill("Semoga selalu bahagia dan saling menyayangi.");
   await page.getByRole("button", { name: "Kirim Ucapan" }).click();
-  await expect(page.getByRole("status")).toContainText("Belum dikirim ke mempelai");
+  await expect(page.locator("#ucapan").getByRole("status")).toContainText("Belum dikirim ke mempelai");
   await expect(page.getByRole("heading", { name: "Tamu Pengujian" })).toBeVisible();
   await page.reload();
   await openInvitation(page);
@@ -37,7 +37,7 @@ test("storage failure preserves the guest's message", async ({ page }) => {
   await page.getByLabel("Nama kamu").fill("Nadia");
   await page.getByLabel("Ucapan & doa").fill("Selamat menempuh hidup baru.");
   await page.getByRole("button", { name: "Kirim Ucapan" }).click();
-  await expect(page.getByRole("status")).toContainText("Ucapan belum tersimpan");
+  await expect(page.locator("#ucapan").getByRole("status")).toContainText("Ucapan belum tersimpan");
   await expect(page.getByLabel("Ucapan & doa")).toHaveValue("Selamat menempuh hidup baru.");
 });
 

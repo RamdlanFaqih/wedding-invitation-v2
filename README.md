@@ -1,6 +1,6 @@
 # A Little Forever
 
-A mobile-first wedding invitation built with Next.js App Router, React, TypeScript, and Tailwind CSS. The design uses warm ivory paper, olive botanical illustrations, serif typography, and an animated envelope with a wax seal.
+A mobile-first wedding invitation built with Next.js App Router, React, TypeScript, and Tailwind CSS. The design combines warm ivory paper, deep olive panels, oversized serif typography, photographic keepsakes, and an animated envelope with a wax seal.
 
 ## Run locally
 
@@ -13,13 +13,14 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000). For a personalized greeting, open [localhost:3000/?to=Nadia%20%26%20Fajar](http://localhost:3000/?to=Nadia%20%26%20Fajar).
 
-No environment variables or external services are required for the UI preview. The app uses system fonts and original inline SVG illustrations, so rendering does not depend on an external font or image host.
+No environment variables or external services are required for the UI preview. The app uses system fonts, original inline SVG illustrations, and local photographs, so rendering does not depend on an external font or image host.
 
 ## Implemented
 
 - Animated paper envelope, wax seal, and “Buka Undangan” opening sequence.
 - Safe guest-name personalization through the `to` URL parameter.
-- Botanical hero, couple monograms, relationship timeline, event cards, and closing note.
+- Photo-led editorial hero, circular seal, shared couple portrait, relationship timeline, arched event cards, and closing note.
+- Scroll-entry animations, photo/button interactions, and a pause/resume animation control that respects reduced-motion preferences.
 - Five supplied couple photos in a responsive gallery, with full-photo viewing, previous/next controls, arrow-key navigation, and Escape to close.
 - Live countdown, Google Maps link, and downloadable `.ics` calendar event.
 - Mobile navigation with the current section highlighted.
@@ -30,7 +31,7 @@ No environment variables or external services are required for the UI preview. T
 
 ## Demo data and guestbook limitation
 
-**Asri Safitri and Agi Gustira, their parents, December 2, 2026, and the Ciamis address are configured from the supplied details.** Ceremony/reception times and bank details are pending; the relationship timeline remains sample content. A preview notice is displayed below the hero. The supplied couple photos appear in the gallery. Individual profile cards retain their designed monograms.
+**Asri Safitri and Agi Gustira, their parents, December 2, 2026, and the Ciamis address are configured from the supplied details.** Ceremony/reception times and bank details are pending; the relationship timeline remains sample content. A preview notice is displayed below the hero. The supplied couple photos appear in the gallery. A shared portrait now sits between the couple profiles, with additional photographic keepsakes on the cover and hero.
 
 **The guestbook is a UI demo, not a connected backend.** Submissions stay in this browser's `localStorage` and are not sent to the couple or shared with other guests. Sample wishes are explicitly labelled. Up to 50 local entries are retained; newer submissions replace the oldest when this limit is reached. The form reports storage failures without clearing the message.
 
@@ -41,7 +42,9 @@ Before using this invitation for real guests, replace local persistence with the
 | File | What to change |
 | --- | --- |
 | `src/config/wedding.ts` | Couple names, initials, event date, timezone, venue, map URL, schedule, and story. |
-| `src/app/globals.css` | Theme colors, typography, responsive styling, and envelope animation. |
+| `src/app/globals.css` | Shared type scale, base components, and envelope animation. |
+| `src/app/editorial.css` | Photo-led compositions, editorial styling, responsive layouts, and motion. |
+| `src/components/use-invitation-motion.ts` | Scroll-entry animations, reduced-motion handling, and animation cleanup. |
 | `src/components/botanical.tsx` | Original botanical vector ornaments. |
 | `src/components/envelope.tsx` | Intro layout and opening sequence. |
 | `src/components/invitation.tsx` | Main invitation sections and interactions. |

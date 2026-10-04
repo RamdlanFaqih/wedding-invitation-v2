@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight, MailOpen } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Botanical, LittleFlower } from "./botanical";
 import { coupleNames, wedding, weddingDate } from "@/config/wedding";
@@ -37,6 +38,9 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
   return (
     <section className={`envelope-screen ${opening ? "is-opening" : ""}`} aria-label="Sampul undangan">
       <div className="cover-grain" />
+      <div className="cover-watermark" aria-hidden="true">with love.</div>
+      <figure className="cover-postcard cover-postcard-left" aria-hidden="true"><Image src="/images/image-2.jpeg" alt="" width={832} height={1280} unoptimized /><figcaption>a little beginning.</figcaption></figure>
+      <figure className="cover-postcard cover-postcard-right" aria-hidden="true"><Image src="/images/image-5.jpeg" alt="" width={854} height={1281} unoptimized /><figcaption>a lifetime together.</figcaption></figure>
       <header className="cover-header"><span className="wordmark" aria-label={coupleNames}>{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></span><span className="eyebrow">A LITTLE FOREVER</span><span className="cover-year">EST. {weddingDate.year}</span></header>
       <div className="cover-content">
         <div className="cover-heading"><span className="eyebrow line-label">SOMETHING BEAUTIFUL IS BEGINNING</span><h1>A letter, <em>with love.</em></h1><p>Ada cerita indah yang ingin kami bagikan denganmu.</p></div>

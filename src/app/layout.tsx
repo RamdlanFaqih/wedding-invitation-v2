@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { coupleNames } from "@/config/wedding";
 import "./globals.css";
+import "./editorial.css";
 
 export const metadata: Metadata = {
   title: `${coupleNames} — A little forever`,

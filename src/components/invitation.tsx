@@ -1,12 +1,14 @@
 "use client";
 
-import { ArrowDown, ArrowUpRight, CalendarDays, Check, Gift, Heart, MapPin, Share2, Sparkles } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, Gift, Heart, MapPin, Pause, Play, Share2, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Botanical, LittleFlower } from "./botanical";
 import { Envelope } from "./envelope";
 import { Guestbook } from "./guestbook";
 import { WeddingGift } from "./wedding-gift";
 import { PhotoGallery } from "./photo-gallery";
+import { Hero, CouplePortrait } from "./hero";
+import { useInvitationMotion } from "./use-invitation-motion";
 import { coupleNames, wedding, weddingDate } from "@/config/wedding";
 import { downloadCalendar } from "@/lib/calendar";
 
@@ -25,6 +27,8 @@ function Countdown() {
 
 export function Invitation() {
   const [opened, setOpened] = useState(false);
+  const [motionPaused, setMotionPaused] = useState(false);
+  useInvitationMotion(opened, motionPaused);
   const [active, setActive] = useState("beranda");
   const [shareMessage, setShareMessage] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
@@ -55,24 +59,22 @@ export function Invitation() {
   return (
     <>
       {!opened && <Envelope onOpen={() => setOpened(true)} />}
-      <div className={`invitation-site ${opened ? "is-revealed" : ""}`} inert={!opened} aria-hidden={!opened}>
-        <header className="site-header"><a href="#beranda" className="wordmark" aria-label="Kembali ke awal">{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></a><span className="header-note">THE BEGINNING OF OUR FOREVER</span><button className="share-button" onClick={share} aria-label="Bagikan undangan"><Share2 size={17} strokeWidth={1.4} /><span>Bagikan</span></button></header>
+      <div className={`invitation-site ${opened ? "is-revealed" : ""} ${motionPaused ? "motion-paused" : ""}`} inert={!opened} aria-hidden={!opened}>
+        <header className="site-header"><a href="#beranda" className="wordmark" aria-label="Kembali ke awal">{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></a><span className="header-note">THE BEGINNING OF OUR FOREVER</span><div className="header-actions"><button className="motion-button" type="button" aria-label={motionPaused ? "Lanjutkan animasi" : "Jeda animasi"} aria-pressed={motionPaused} onClick={() => setMotionPaused((paused) => !paused)}>{motionPaused ? <Play size={16} /> : <Pause size={16} />}<span>Animasi</span></button><button className="share-button" onClick={share} aria-label="Bagikan undangan"><Share2 size={17} strokeWidth={1.4} /><span>Bagikan</span></button></div></header>
         <main>
-          <section className="hero" id="beranda">
-            <div className="hero-side-note">TWO SOULS. ONE BEAUTIFUL JOURNEY.</div>
-            <div className="hero-arch"><Botanical className="hero-leaf hero-leaf-left" variant="bloom" /><Botanical className="hero-leaf hero-leaf-right" /><div className="arch-inner" />
-              <div className="hero-copy"><span className="eyebrow">TOGETHER WITH OUR FAMILIES</span><span className="hero-intro">the wedding of</span><h1 ref={heading} tabIndex={-1}>{wedding.bride.name}<span className="hero-ampersand">&</span>{wedding.groom.name}</h1><div className="hero-date"><span>{weddingDate.day}</span><i /> <span>{weddingDate.month.toUpperCase()}</span><i /><span>{weddingDate.year}</span></div><p>Sebuah cerita, sebuah janji,<br />dan awal dari selamanya.</p><a href="#mempelai" className="hero-scroll" aria-label="Jelajahi cerita kami"><ArrowDown size={18} /></a></div>
-            </div>
-            <div className="hero-bottom"><span>{wedding.city.toUpperCase()}, INDONESIA</span><span className="handwritten">and so, our forever begins.</span><span>WITH LOVE, ALWAYS</span></div>
-          </section>
+          <Hero heading={heading} />
           {wedding.isPreview && <div className="preview-ribbon"><Sparkles size={13} /><span>Pratinjau · Cerita masih contoh. Jam acara dan informasi rekening menyusul.</span></div>}
           <section className="quote-section"><LittleFlower /><p>“Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya.”</p><span className="eyebrow">QS. AR-RUM : 21 · PENGGALAN AYAT</span></section>
           <section className="couple-section section-space" id="mempelai"><div className="section-heading"><span className="eyebrow">BY GRACE, WE FOUND EACH OTHER</span><h2>Dua hati, <em>satu tujuan.</em></h2><p>Dengan memohon rahmat dan rida Allah SWT,<br />kami bermaksud menyatukan langkah dalam ikatan pernikahan.</p></div>
-            <div className="couple-grid"><article className="person-card"><div className="person-art bride-art"><div className="person-arch" /><Botanical className="person-leaf" variant="bloom" /><span className="person-monogram">{wedding.bride.initial}</span><span className="eyebrow">THE BRIDE</span></div><h3>{wedding.bride.fullName}</h3><p>{wedding.bride.parents}</p><span className="handwritten">a heart full of sunshine</span></article><span className="couple-ampersand">&</span><article className="person-card"><div className="person-art groom-art"><div className="person-arch" /><Botanical className="person-leaf" /><span className="person-monogram">{wedding.groom.initial}</span><span className="eyebrow">THE GROOM</span></div><h3>{wedding.groom.fullName}</h3><p>{wedding.groom.parents}</p><span className="handwritten">her favorite place to come home</span></article></div>
+            <div className="couple-grid">
+              <article className="person-card"><span className="person-letter" aria-hidden="true">{wedding.bride.initial}</span><span className="eyebrow">THE BRIDE</span><h3>{wedding.bride.fullName}</h3><p>{wedding.bride.parents}</p><span className="handwritten">a heart full of sunshine</span></article>
+              <CouplePortrait />
+              <article className="person-card"><span className="person-letter" aria-hidden="true">{wedding.groom.initial}</span><span className="eyebrow">THE GROOM</span><h3>{wedding.groom.fullName}</h3><p>{wedding.groom.parents}</p><span className="handwritten">her favorite place to come home</span></article>
+            </div>
           </section>
           <PhotoGallery />
           <section className="story-section section-space" id="cerita"><div className="story-title"><span className="eyebrow">EVERY LOVE HAS A STORY</span><h2>Dan ini,<br /><em>cerita kami.</em></h2><p>Bukan tentang kisah yang sempurna.<br />Tentang dua orang yang selalu<br />memilih untuk bersama.</p><Botanical className="story-botanical" variant="bloom" /></div><div className="story-timeline">{wedding.story.map((chapter, index) => <article className="story-chapter" key={chapter.year}><span className="chapter-dot" /><span className="eyebrow">{chapter.year} <span className="chapter-number">/ 0{index + 1}</span></span><h3>{chapter.title}</h3><p>{chapter.text}</p></article>)}</div></section>
-          <section className="event-section section-space" id="acara"><div className="section-heading"><span className="eyebrow">A DAY TO REMEMBER</span><h2>Untuk sebuah <em>selamanya.</em></h2><p>Kehadiranmu akan melengkapi kebahagiaan kami.</p></div><div className="event-date"><span>{wedding.dayLabel}</span><strong>{wedding.dateLabel}</strong><span>{wedding.venue}, {wedding.city}</span></div><Countdown /><div className="event-grid">{wedding.events.map((event, index) => <article className="event-card" key={event.title}><span className="event-number">0{index + 1}</span>{index === 0 ? <div className="rings-icon" aria-hidden="true"><i /><i /></div> : <LittleFlower />}<h3>{event.title}</h3><span className="event-time">{event.time}</span><p>{event.description}</p></article>)}</div><div className="event-actions"><button className="button button-dark" onClick={downloadCalendar}><CalendarDays size={16} />Simpan Tanggal<ArrowUpRight size={16} /></button><a className="button button-outline" href={wedding.mapUrl} target="_blank" rel="noopener noreferrer"><MapPin size={16} />Petunjuk Lokasi<ArrowUpRight size={16} /></a></div><p className="venue-address"><MapPin size={13} />{wedding.address}</p></section>
+          <section className="event-section section-space" id="acara"><div className="event-watermark" aria-hidden="true">save the date</div><div className="section-heading"><span className="eyebrow">A DAY TO REMEMBER</span><h2>Untuk sebuah <em>selamanya.</em></h2><p>Kehadiranmu akan melengkapi kebahagiaan kami.</p></div><div className="event-date"><span>{wedding.dayLabel}</span><strong aria-label={wedding.dateLabel}><span className="event-day">{weddingDate.day}</span><span className="event-month">{weddingDate.month} <i>{weddingDate.year}</i></span></strong><span>{wedding.venue}, {wedding.city}</span></div><Countdown /><div className="event-grid">{wedding.events.map((event, index) => <article className="event-card" key={event.title}><span className="event-number">0{index + 1}</span>{index === 0 ? <div className="rings-icon" aria-hidden="true"><i /><i /></div> : <LittleFlower />}<h3>{event.title}</h3><span className="event-time">{event.time}</span><p>{event.description}</p></article>)}</div><div className="event-actions"><button className="button button-dark" onClick={downloadCalendar}><CalendarDays size={16} />Simpan Tanggal<ArrowUpRight size={16} /></button><a className="button button-outline" href={wedding.mapUrl} target="_blank" rel="noopener noreferrer"><MapPin size={16} />Petunjuk Lokasi<ArrowUpRight size={16} /></a></div><p className="venue-address"><MapPin size={13} />{wedding.address}</p></section>
           <section className="love-note"><Botanical className="note-botanical" /><span className="eyebrow">THE LITTLE THINGS, THE BIG FEELINGS</span><p>Di antara banyak hal yang berubah,<br />aku ingin terus <em>memilihmu.</em></p><span className="handwritten">today, tomorrow, and all the days after.</span></section>
           <WeddingGift />
           <Guestbook />
