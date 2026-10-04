@@ -1,4 +1,4 @@
-# Asri — A Little Forever
+# A Little Forever
 
 A mobile-first wedding invitation built with Next.js App Router, React, TypeScript, and Tailwind CSS. The design uses warm ivory paper, olive botanical illustrations, serif typography, and an animated envelope with a wax seal.
 
