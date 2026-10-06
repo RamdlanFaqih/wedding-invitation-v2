@@ -10,10 +10,19 @@ function timestamp(value: string) {
 
 export function downloadCalendar() {
   const slug = `${wedding.bride.name}-${wedding.groom.name}`.toLowerCase();
-  const dates = wedding.allDay
-    ? [`DTSTART;VALUE=DATE:${wedding.date.slice(0, 10).replaceAll("-", "")}`, `DTEND;VALUE=DATE:${wedding.endDate.slice(0, 10).replaceAll("-", "")}`]
-    : [`DTSTART:${timestamp(wedding.date)}`, `DTEND:${timestamp(wedding.endDate)}`];
-  const content = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Asri Wedding//Invitation//ID", "CALSCALE:GREGORIAN", "BEGIN:VEVENT", `UID:${slug}-${wedding.date.slice(0, 10)}@invitation.local`, `DTSTAMP:${timestamp(new Date().toISOString())}`, ...dates, `SUMMARY:${escapeICS(`Pernikahan ${coupleNames}`)}`, `LOCATION:${escapeICS(wedding.address)}`, `DESCRIPTION:${escapeICS("Kami menantikan kehadiran dan doa baik Anda di hari bahagia kami." + (wedding.allDay ? " Jam akad dan resepsi menyusul." : ""))}`, "END:VEVENT", "END:VCALENDAR", ""].join("\r\n");
+  // The finish time is open-ended; omit DTEND rather than invent a duration.
+  const events = wedding.events.flatMap((event) => [
+    "BEGIN:VEVENT",
+    `UID:${slug}-${event.id}@invitation.local`,
+    `DTSTAMP:${timestamp(new Date().toISOString())}`,
+    `DTSTART:${timestamp(event.date)}`,
+    `SUMMARY:${escapeICS(`${event.title} — ${coupleNames}`)}`,
+    `LOCATION:${escapeICS(`${event.venue}, ${event.address}`)}`,
+    `DESCRIPTION:${escapeICS(`${event.time}. ${event.description}`)}`,
+    `URL:${event.mapUrl}`,
+    "END:VEVENT",
+  ]);
+  const content = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Asri Wedding//Invitation//ID", "CALSCALE:GREGORIAN", ...events, "END:VCALENDAR", ""].join("\r\n");
   const url = URL.createObjectURL(new Blob([content], { type: "text/calendar;charset=utf-8" }));
   const link = document.createElement("a");
   link.href = url;

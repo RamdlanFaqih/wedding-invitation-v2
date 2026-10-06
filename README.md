@@ -31,7 +31,7 @@ No environment variables or external services are required for the UI preview. T
 
 ## Demo data and guestbook limitation
 
-**Asri Safitri and Agi Gustira, their parents, December 2, 2026, and the Ciamis address are configured from the supplied details.** Ceremony/reception times and bank details are pending; the relationship timeline remains sample content. A preview notice is displayed below the hero. The supplied couple photos appear in the gallery. A shared portrait now sits between the couple profiles, with additional photographic keepsakes on the cover and hero.
+**Asri Safitri and Agi Gustira, their parents, December 2, 2026, and the Ciamis address are configured from the supplied details.** Both event schedules and the SeaBank/BCA gift accounts are configured from the supplied details; the relationship timeline remains sample content. A preview notice is displayed below the hero. The supplied couple photos appear in the gallery. A shared portrait now sits between the couple profiles, with additional photographic keepsakes on the cover and hero.
 
 **The guestbook is a UI demo, not a connected backend.** Submissions stay in this browser's `localStorage` and are not sent to the couple or shared with other guests. Sample wishes are explicitly labelled. Up to 50 local entries are retained; newer submissions replace the oldest when this limit is reached. The form reports storage failures without clearing the message.
 
@@ -51,7 +51,7 @@ Before using this invitation for real guests, replace local persistence with the
 | `src/components/guestbook.tsx` | Demo guestbook and its local storage adapter. |
 | `src/app/layout.tsx` | Page title, sharing text, and indexing policy. |
 
-The calendar currently exports an all-day event for December 2, 2026 because event times are not yet confirmed. Once times are confirmed, update both ISO timestamps and the visible schedule, and set `allDay` to `false` for timed UTC calendar entries. The filename and event UID derive from the couple configuration. The map link is an address search; replace it with a confirmed venue pin when available.
+The calendar exports both confirmed events: Akad & Resepsi on December 2, 2026 and Mulung Mantu on December 5, 2026, each starting at 08:00 WIB. End times are omitted because the schedule runs until finished. Each event card has its own address-search map link; replace these with confirmed venue pins when available.
 
 The `.isPreview` configuration flag controls the sample-content ribbon only. It does not connect the guestbook. Replace sample content before changing it to `false`.
 

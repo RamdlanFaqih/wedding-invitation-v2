@@ -249,3 +249,21 @@
   .hero-copy, .hero-visual, .cover-postcard { opacity: 1; translate: none; }
   .photo-button:hover > img { transform: none; }
 }
+
+/* Two celebrations, each with its own schedule and location. */
+.event-grid { max-width: 900px; }
+.event-card { display: flex; flex-direction: column; align-items: center; padding: 45px 28px 42px; }
+.event-card-date { display: block; margin-top: 18px; font-size: var(--text-body); font-weight: 600; }
+.event-card .event-time { font-size: var(--text-small); margin-top: 8px; }
+.event-card .event-description { font-size: var(--text-small); }
+.event-location { width: 100%; margin-top: 24px; padding-top: 22px; border-top: 1px solid #bac2aa80; }
+.event-location > svg { margin: 0 auto 10px; color: #7c8a65; }
+.event-location h4 { font-family: var(--serif); font-size: 22px; font-weight: 400; }
+.event-card .event-location p { margin: 10px 0 24px; font-size: var(--text-small); line-height: 1.8; }
+.event-section .event-map { margin-top: auto; color: var(--olive-deep); border-color: #8b987a80; }
+.event-section .event-map:hover { background: #e6e9da; }
+@media (max-width: 640px) {
+  .event-grid { grid-template-columns: 1fr; max-width: 400px; gap: 24px; }
+  .event-card { padding: 38px 24px 42px; border-radius: 100px 100px 8px 8px; }
+  .event-card h3 { font-size: 30px; }
+}
