@@ -91,3 +91,9 @@ All five supplied `image-*.jpeg` files are served from `public/images/` and disp
 Open `/tambah-tamu-undangan` and sign in with `admin` / `admin123`. Enter a guest name (up to 80 characters) to generate a URL with the existing `to` parameter. Copy the link, open its preview, or copy the ready-to-send invitation message. Links use the current site's origin, so generate them on the deployment you want guests to visit. No guest list is stored.
 
 Authentication is checked on the server with an HTTP-only, signed cookie lasting eight hours. Use the logout button to end the browser session. Optional server environment variables `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET` override the defaults; set a long random session secret on Vercel. The requested default credentials provide only basic access control and should be changed before using this as a private production admin page.
+
+## Link sharing preview
+
+Open Graph and Twitter metadata use the supplied couple portrait (`public/images/image-4.jpeg`), the couple names, and the wedding date. Image URLs are absolute: set `NEXT_PUBLIC_SITE_URL` to the public HTTPS domain, or leave it unset to use Vercel's deployment URL automatically. Redeploy after changing this variable. Guest links with `?to=` share the same wedding image.
+
+WhatsApp must be able to fetch both the page and image without signing in; a deployment protected by Vercel Authentication cannot provide a public crawler preview. Existing shares may retain cached previews. Actual WhatsApp rendering must be checked with the deployed public URL.
