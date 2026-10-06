@@ -85,3 +85,9 @@ When complete details are present, the copy button copies the account number wit
 ## Photo gallery
 
 All five supplied `image-*.jpeg` files are served from `public/images/` and displayed by `src/components/photo-gallery.tsx`. Originals in the repository root are preserved. The JPEGs already total approximately 297 KiB, so they are used without recompression or runtime image transformations. Gallery images load lazily with explicit dimensions; the full-photo dialog preserves the entire composition. Update the photo list to change their order, descriptions, and captions.
+
+## Guest invitation links
+
+Open `/tambah-tamu-undangan` and sign in with `admin` / `admin123`. Enter a guest name (up to 80 characters) to generate a URL with the existing `to` parameter. Copy the link, open its preview, or copy the ready-to-send invitation message. Links use the current site's origin, so generate them on the deployment you want guests to visit. No guest list is stored.
+
+Authentication is checked on the server with an HTTP-only, signed cookie lasting eight hours. Use the logout button to end the browser session. Optional server environment variables `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET` override the defaults; set a long random session secret on Vercel. The requested default credentials provide only basic access control and should be changed before using this as a private production admin page.

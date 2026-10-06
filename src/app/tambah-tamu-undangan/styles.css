@@ -1,0 +1,22 @@
+.guest-admin { min-height: 100dvh; background: radial-gradient(ellipse at top right, #dfe4d2 0, transparent 55%), #f4f1e8; padding: 28px clamp(20px, 6vw, 80px); color: #354631; }
+.guest-admin-header { max-width: 1000px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.guest-admin-header > a { font-family: var(--serif); font-size: 28px; text-decoration: none; }
+.guest-admin-header > a span { display: block; font-family: var(--sans); font-size: 10px; letter-spacing: 2px; margin-top: 4px; }
+.guest-admin-panel { max-width: 650px; margin: 60px auto 32px; padding: clamp(24px, 5vw, 50px); border: 1px solid #c3cbb3; border-radius: 32px; background: #fffdf5e8; box-shadow: 0 20px 70px #3546310d; }
+.guest-admin-panel h1 { font-family: var(--serif); font-size: clamp(36px, 5vw, 52px); line-height: 1.12; margin: 18px 0; }
+.guest-admin-panel h1 em { color: #768561; }
+.guest-admin-panel > p { font-size: 16px; line-height: 1.8; }
+.guest-admin-form { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+.guest-admin label { display: block; font-size: 15px; font-weight: 600; }
+.guest-admin input, .guest-admin textarea { width: 100%; min-width: 0; padding: 14px 16px; border: 1px solid #bec8ae; background: #fffef9; border-radius: 12px; font: inherit; font-size: 16px; color: #354631; }
+.guest-admin textarea { resize: vertical; line-height: 1.7; }
+.guest-admin :is(input, textarea, button, a):focus-visible { outline: 2px solid #768561; outline-offset: 4px; }
+.guest-admin small { display: block; font-size: 13px; line-height: 1.7; color: #657257; }
+.guest-admin-form .button { margin-top: 8px; }
+.guest-admin-feedback { min-height: 24px; margin-top: 14px; font-size: 14px; line-height: 1.6; }
+.guest-admin-result { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; padding-top: 28px; border-top: 1px solid #c3cbb3; }
+.guest-admin-result h2 { font-family: var(--serif); font-size: 30px; overflow-wrap: anywhere; }
+.guest-admin-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.guest-admin .button { min-height: 48px; white-space: normal; text-align: center; }
+.guest-admin-footer { text-align: center; font-size: 13px; padding: 20px 0; color: #657257; }
+@media (max-width: 480px) { .guest-admin-panel { margin-top: 35px; } .guest-admin-buttons .button { width: 100%; } }
