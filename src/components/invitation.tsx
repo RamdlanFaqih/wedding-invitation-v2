@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, CalendarDays, Check, Gift, Heart, MapPin, Pause, Play, Share2, Sparkles } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, Gift, Heart, MapPin, Square, Play, Share2, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Botanical, LittleFlower } from "./botanical";
 import { Envelope } from "./envelope";
@@ -11,6 +11,7 @@ import { Hero, CouplePortrait } from "./hero";
 import { useInvitationMotion } from "./use-invitation-motion";
 import { coupleNames, wedding, weddingDate } from "@/config/wedding";
 import { downloadCalendar } from "@/lib/calendar";
+import invitationMusic from "@/assets/audio/The Way You Look At Me - Christian Bautista (Saxophone Cover) Saxserenade.mp3";
 
 function Countdown() {
   const [remaining, setRemaining] = useState<number | null>(null);
@@ -27,8 +28,23 @@ function Countdown() {
 
 export function Invitation() {
   const [opened, setOpened] = useState(false);
-  const [motionPaused, setMotionPaused] = useState(false);
-  useInvitationMotion(opened, motionPaused);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const audio = useRef<HTMLAudioElement>(null);
+  useInvitationMotion(opened, false);
+
+  function playMusic() {
+    void audio.current?.play().catch(() => setMusicPlaying(false));
+  }
+
+  function toggleMusic() {
+    if (!audio.current) return;
+    if (!audio.current.paused) {
+      audio.current.pause();
+      audio.current.currentTime = 0;
+    } else {
+      playMusic();
+    }
+  }
   const [active, setActive] = useState("beranda");
   const [shareMessage, setShareMessage] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
@@ -58,9 +74,10 @@ export function Invitation() {
 
   return (
     <>
-      {!opened && <Envelope onOpen={() => setOpened(true)} />}
-      <div className={`invitation-site ${opened ? "is-revealed" : ""} ${motionPaused ? "motion-paused" : ""}`} inert={!opened} aria-hidden={!opened}>
-        <header className="site-header"><a href="#beranda" className="wordmark" aria-label="Kembali ke awal">{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></a><span className="header-note">THE BEGINNING OF OUR FOREVER</span><div className="header-actions"><button className="motion-button" type="button" aria-label={motionPaused ? "Lanjutkan animasi" : "Jeda animasi"} aria-pressed={motionPaused} onClick={() => setMotionPaused((paused) => !paused)}>{motionPaused ? <Play size={16} /> : <Pause size={16} />}<span>Animasi</span></button><button className="share-button" onClick={share} aria-label="Bagikan undangan"><Share2 size={17} strokeWidth={1.4} /><span>Bagikan</span></button></div></header>
+      <audio ref={audio} src={invitationMusic} preload="none" loop onPlaying={() => setMusicPlaying(true)} onPause={() => setMusicPlaying(false)} onError={() => setMusicPlaying(false)} />
+      {!opened && <Envelope onOpening={playMusic} onOpen={() => setOpened(true)} />}
+      <div className={`invitation-site ${opened ? "is-revealed" : ""}`} inert={!opened} aria-hidden={!opened}>
+        <header className="site-header"><a href="#beranda" className="wordmark" aria-label="Kembali ke awal">{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></a><span className="header-note">THE BEGINNING OF OUR FOREVER</span><div className="header-actions"><button className="music-button" type="button" aria-label={musicPlaying ? "Hentikan musik" : "Putar musik"} aria-pressed={musicPlaying} onClick={toggleMusic}>{musicPlaying ? <Square size={16} /> : <Play size={16} />}<span>Musik</span></button><button className="share-button" onClick={share} aria-label="Bagikan undangan"><Share2 size={17} strokeWidth={1.4} /><span>Bagikan</span></button></div></header>
         <main>
           <Hero heading={heading} />
           {wedding.isPreview && <div className="preview-ribbon"><Sparkles size={13} /><span>Pratinjau · Cerita masih contoh.</span></div>}

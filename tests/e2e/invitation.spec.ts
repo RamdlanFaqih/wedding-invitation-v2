@@ -64,3 +64,18 @@ test("calendar download is available", async ({ page }) => {
   await page.getByRole("button", { name: "Simpan Tanggal" }).click();
   expect((await download).suggestedFilename()).toBe("asri-agi.ics");
 });
+
+test("opening the envelope starts music and the navbar stops and restarts it", async ({ page }) => {
+  await page.goto("/");
+  const audio = page.locator("audio");
+  await expect(audio).toHaveJSProperty("paused", true);
+  await page.getByRole("button", { name: "Buka Undangan" }).click();
+  await expect(audio).toHaveJSProperty("paused", false);
+  await expect.poll(() => audio.evaluate((element: HTMLAudioElement) => element.currentTime)).toBeGreaterThan(0);
+  await page.getByRole("button", { name: "Hentikan musik" }).click();
+  await expect(audio).toHaveJSProperty("paused", true);
+  await expect(audio).toHaveJSProperty("currentTime", 0);
+  await page.getByRole("button", { name: "Putar musik" }).click();
+  await expect(audio).toHaveJSProperty("paused", false);
+  await expect(page.getByRole("button", { name: "Hentikan musik" })).toHaveAttribute("aria-pressed", "true");
+});

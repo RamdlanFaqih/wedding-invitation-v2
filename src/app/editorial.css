@@ -6,8 +6,8 @@
 .button:hover > svg:last-child { transform: translate(2px, -2px); }
 .button-dark { background: var(--olive-deep); }
 .header-actions { display: flex; align-items: center; gap: 22px; }
-.motion-button { border: 0; background: none; padding: 12px 0; display: flex; align-items: center; gap: 7px; font-size: var(--text-small); min-height: 44px; }
-.motion-button[aria-pressed="true"] { color: #947342; }
+.music-button { border: 0; background: none; padding: 12px 0; display: flex; align-items: center; gap: 7px; font-size: var(--text-small); min-height: 44px; }
+.music-button[aria-pressed="true"] { color: #947342; }
 .site-header { position: relative; z-index: 2; background: var(--paper); }
 .section-heading > .eyebrow::before { content: "✦"; display: block; font-size: 17px; color: var(--gold); margin-bottom: 16px; }
 .section-heading h2 { letter-spacing: -.045em; }
@@ -169,8 +169,8 @@
 @media (max-width: 760px) {
   .header-note { display: none; }
   .header-actions { gap: 16px; }
-  .motion-button { padding-inline: 8px; }
-  .motion-button > span { font-size: 12px; }
+  .music-button { padding-inline: 8px; }
+  .music-button > span { font-size: 12px; }
   .hero { padding: 40px 26px 26px; }
   .hero-layout { grid-template-columns: 1fr; gap: 20px; }
   .hero-copy { text-align: center; padding: 0; }

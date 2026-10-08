@@ -14,7 +14,7 @@ function getGuest() {
   return new URLSearchParams(window.location.search).get("to")?.trim().slice(0, 80) || "Tamu Istimewa";
 }
 
-export function Envelope({ onOpen }: { onOpen: () => void }) {
+export function Envelope({ onOpening, onOpen }: { onOpening: () => void; onOpen: () => void }) {
   const [opening, setOpening] = useState(false);
   const guest = useSyncExternalStore(subscribeToLocation, getGuest, () => "Tamu Istimewa");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -30,6 +30,7 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
 
   function open() {
     if (opening) return;
+    onOpening();
     setOpening(true);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     timer.current = setTimeout(onOpen, reduced ? 20 : 1550);
