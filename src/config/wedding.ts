@@ -2,7 +2,7 @@ export type GiftAccount = { id: string; bank: string; accountNumber: string; acc
 
 /** Confirmed couple, event schedule, and bank details; story remains sample content. */
 export const wedding = {
-  isPreview: true,
+  isPreview: false,
   bride: { name: "Asri", fullName: "Asri Safitri", parents: "Putri dari Bapak Enang Rohmat & Ibu OOH", initial: "A" },
   groom: { name: "Agi", fullName: "Agi Gustira", parents: "Putra dari Bapak Supriatna & Ibu Euis Sutarsih", initial: "A" },
   date: "2026-12-02T08:00:00+07:00",
