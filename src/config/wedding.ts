@@ -37,9 +37,22 @@ export const wedding = {
     },
   ],
   story: [
-    { year: "2022", title: "Sebuah pertemuan", text: "Dari percakapan sederhana, tumbuh rasa yang tak pernah kami duga. Semesta punya caranya sendiri mempertemukan dua hati." },
-    { year: "2025", title: "Satu arah, bersama", text: "Melewati banyak cerita, kami menemukan rumah dalam diri satu sama lain. Lalu, kami memilih untuk melangkah bersama." },
-    { year: "2026", title: "Babak yang baru", text: "Dengan restu keluarga dan doa orang-orang terkasih, kami memulai cerita selamanya. Dan kamu menjadi bagian di dalamnya." },
+    {
+      title: "“Awal Kisah”",
+      text: "Tak ada yang menyangka bahwa sebuah pertemuan singkat akan menjadi awal dari segalanya. Di antara miliaran kemungkinan, semesta memilih untuk mempertemukan kami dalam satu waktu yang tak terduga, memulai cerita yang telah Tuhan gariskan.",
+    },
+    {
+      title: "“Saling Mendewasakan”",
+      text: "Perjalanan kami bukan hanya tentang kebahagiaan, tapi tentang proses saling mendewasakan. Kami belajar menyatukan perbedaan, membangun fondasi kepercayaan, dan meyakini bahwa setiap tantangan adalah cara kami untuk semakin kokoh sebagai satu kesatuan.",
+    },
+    {
+      title: "“Janji Setia”",
+      text: "Di titik ini, kami memilih untuk berhenti mencari. Momen lamaran menjadi bukti nyata dari kesungguhan hati—sebuah pernyataan bahwa kami siap melangkah lebih jauh. Kami memilih untuk saling menjaga, mulai dari detik ini hingga selamanya.",
+    },
+    {
+      title: "“Awal Selamanya”",
+      text: "Hari ini, dua doa menyatu menjadi satu tujuan. Di hadapan Sang Pencipta, kami mengukir janji suci untuk memulai hidup baru. Pernikahan ini bukanlah akhir, melainkan gerbang menuju petualangan abadi yang kami tempuh bersama.",
+    },
   ],
 } as const;
 

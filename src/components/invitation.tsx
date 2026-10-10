@@ -90,7 +90,7 @@ export function Invitation() {
             </div>
           </section>
           <PhotoGallery />
-          <section className="story-section section-space" id="cerita"><div className="story-title"><span className="eyebrow">EVERY LOVE HAS A STORY</span><h2>Dan ini,<br /><em>cerita kami.</em></h2><p>Bukan tentang kisah yang sempurna.<br />Tentang dua orang yang selalu<br />memilih untuk bersama.</p><Botanical className="story-botanical" variant="bloom" /></div><div className="story-timeline">{wedding.story.map((chapter, index) => <article className="story-chapter" key={chapter.year}><span className="chapter-dot" /><span className="eyebrow">{chapter.year} <span className="chapter-number">/ 0{index + 1}</span></span><h3>{chapter.title}</h3><p>{chapter.text}</p></article>)}</div></section>
+          <section className="story-section section-space" id="cerita"><div className="story-title"><span className="eyebrow">EVERY LOVE HAS A STORY</span><h2>Dan ini,<br /><em>cerita kami.</em></h2><p>Bukan tentang kisah yang sempurna.<br />Tentang dua orang yang selalu<br />memilih untuk bersama.</p><Botanical className="story-botanical" variant="bloom" /></div><div className="story-timeline">{wedding.story.map((chapter, index) => <article className="story-chapter" key={chapter.title}><span className="chapter-dot" /><span className="eyebrow">0{index + 1}</span><h3>{chapter.title}</h3><p>{chapter.text}</p></article>)}</div></section>
           <section className="event-section section-space" id="acara"><div className="event-watermark" aria-hidden="true">save the date</div><div className="section-heading"><span className="eyebrow">A DAY TO REMEMBER</span><h2>Untuk sebuah <em>selamanya.</em></h2><p>Kehadiranmu akan melengkapi kebahagiaan kami.</p></div><div className="event-date"><span>{wedding.dayLabel}</span><strong aria-label={wedding.dateLabel}><span className="event-day">{weddingDate.day}</span><span className="event-month">{weddingDate.month} <i>{weddingDate.year}</i></span></strong><span>{wedding.venue}, {wedding.city}</span></div><Countdown /><div className="event-grid">{wedding.events.map((event, index) => <article className="event-card" key={event.id}>
             <span className="event-number">0{index + 1}</span>
             {event.icon === "rings" ? <div className="rings-icon" aria-hidden="true"><i /><i /></div> : <LittleFlower />}
@@ -103,11 +103,18 @@ export function Invitation() {
           </article>)}</div><div className="event-actions"><button className="button button-dark" onClick={downloadCalendar}><CalendarDays size={16} />Simpan Kedua Acara<ArrowUpRight size={16} /></button></div></section>
           <section className="love-note"><Botanical className="note-botanical" /><span className="eyebrow">THE LITTLE THINGS, THE BIG FEELINGS</span><p>Di antara banyak hal yang berubah,<br />aku ingin terus <em>memilihmu.</em></p><span className="handwritten">today, tomorrow, and all the days after.</span></section>
           <WeddingGift />
-          <Guestbook />
+          {/* <Guestbook /> */}
           <section className="closing"><LittleFlower /><span className="eyebrow">UNTIL WE MEET ON OUR SPECIAL DAY</span><h2>Terima kasih,<br /><em>dari hati kami.</em></h2><p>Untuk setiap doa, kasih, dan kehadiranmu.<br />Tak sabar merayakan hari bahagia ini bersamamu.</p><span className="closing-names">{coupleNames}</span><span className="eyebrow">{weddingDate.numeric}</span><Botanical className="closing-leaf" variant="bloom" /></section>
         </main>
         <footer className="site-footer"><span>Made with love, for a lifetime.</span><Heart size={12} /><span>{coupleNames.toUpperCase()} © {weddingDate.year}</span></footer>
-        <nav className="bottom-nav" aria-label="Navigasi undangan">{[{ id: "beranda", label: "Awal", icon: <Heart size={17} /> }, { id: "mempelai", label: "Mempelai", icon: <LittleFlower /> }, { id: "cerita", label: "Cerita", icon: <Sparkles size={17} /> }, { id: "acara", label: "Acara", icon: <CalendarDays size={17} /> }, { id: "hadiah", label: "Hadiah", icon: <Gift size={17} /> }, { id: "ucapan", label: "Ucapan", icon: <SendIcon /> }].map((item) => <a key={item.id} href={`#${item.id}`} className={active === item.id ? "active" : ""} aria-current={active === item.id ? "location" : undefined}>{item.icon}<span>{item.label}</span></a>)}</nav>
+        <nav className="bottom-nav" aria-label="Navigasi undangan">{[
+          { id: "beranda", label: "Awal", icon: <Heart size={17} /> },
+          { id: "mempelai", label: "Mempelai", icon: <LittleFlower /> },
+          { id: "cerita", label: "Cerita", icon: <Sparkles size={17} /> },
+          { id: "acara", label: "Acara", icon: <CalendarDays size={17} /> },
+          { id: "hadiah", label: "Hadiah", icon: <Gift size={17} /> },
+          // { id: "ucapan", label: "Ucapan", icon: <SendIcon /> },
+        ].map((item) => <a key={item.id} href={`#${item.id}`} className={active === item.id ? "active" : ""} aria-current={active === item.id ? "location" : undefined}>{item.icon}<span>{item.label}</span></a>)}</nav>
         {shareMessage && <div className="share-toast" role="status"><Check size={16} />{shareMessage}<button onClick={() => setShareMessage("")} aria-label="Tutup notifikasi">×</button></div>}
       </div>
     </>
