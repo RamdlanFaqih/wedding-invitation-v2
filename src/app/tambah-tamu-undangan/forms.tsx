@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useState, type FormEvent } from "react";
-import { ArrowUpRight, Copy, Link, LockKeyhole } from "lucide-react";
+import { useActionState, useEffect, useState, type FormEvent } from "react";
+import { ArrowUpRight, CheckCircle2, Copy, Link, LockKeyhole, X } from "lucide-react";
 import { coupleNames } from "@/config/wedding";
 import { login } from "./actions";
 
@@ -19,6 +19,12 @@ export function GuestLinkForm() {
   const [name, setName] = useState("");
   const [result, setResult] = useState<{ name: string; url: string } | null>(null);
   const [feedback, setFeedback] = useState("");
+  const [copyNotice, setCopyNotice] = useState<{ message: string } | null>(null);
+  useEffect(() => {
+    if (!copyNotice) return;
+    const timeout = window.setTimeout(() => setCopyNotice(null), 4000);
+    return () => window.clearTimeout(timeout);
+  }, [copyNotice]);
   function generate(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const guest = name.trim();
@@ -30,10 +36,16 @@ export function GuestLinkForm() {
   }
   const message = result ? `Yth. ${result.name},\n\nDengan penuh kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan ${coupleNames}.\n\nSilakan buka undangan melalui tautan berikut:\n${result.url}\n\nKehadiran dan doa Anda sangat berarti bagi kami. Terima kasih.` : "";
   async function copy(value: string, label: string) {
-    try { await navigator.clipboard.writeText(value); setFeedback(`${label} berhasil disalin.`); }
+    setCopyNotice(null);
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopyNotice({ message: `${label} berhasil disalin.` });
+      setFeedback("");
+    }
     catch { setFeedback("Belum berhasil disalin. Pilih teks di bawah dan salin secara manual."); }
   }
   return <>
+    {copyNotice && <div className="share-toast" role="status"><CheckCircle2 size={20} aria-hidden="true" /><span>{copyNotice.message}</span><button type="button" onClick={() => setCopyNotice(null)} aria-label="Tutup notifikasi"><X size={18} /></button></div>}
     <form onSubmit={generate} className="guest-admin-form">
       <label htmlFor="guest">1. Nama tamu undangan</label>
       <input id="guest" value={name} onChange={(event) => { setName(event.target.value); setResult(null); setFeedback(""); }} placeholder="Contoh: Bapak Budi & Ibu Sari" required maxLength={80} aria-describedby="guest-help" />
@@ -43,12 +55,12 @@ export function GuestLinkForm() {
     <p role="status" className="guest-admin-feedback">{feedback}</p>
     {result && <section className="guest-admin-result" aria-label="Hasil tautan undangan">
       <span className="eyebrow">SIAP DIKIRIM</span><h2>Untuk {result.name}</h2>
-      <label htmlFor="invitation-url">2. Salin tautan atau pesan undangan</label>
-      <input id="invitation-url" readOnly value={result.url} onFocus={(event) => event.target.select()} />
-      <div className="guest-admin-buttons"><button className="button button-dark" onClick={() => copy(result.url, "Tautan")}><Copy size={16} />Salin Tautan</button><a className="button button-outline" href={result.url} target="_blank" rel="noopener noreferrer">Lihat Undangan<ArrowUpRight size={16} /></a></div>
-      <label htmlFor="invitation-message">Pesan siap kirim</label><textarea id="invitation-message" readOnly value={message} rows={9} onFocus={(event) => event.target.select()} />
-      <button className="button button-outline" onClick={() => copy(message, "Pesan undangan")}><Copy size={16} />Salin Pesan & Tautan</button>
+      <label htmlFor="invitation-message">2. Pesan siap kirim</label><textarea id="invitation-message" readOnly value={message} rows={9} onFocus={(event) => event.target.select()} />
+      <button className="button button-dark" onClick={() => copy(message, "Pesan undangan")}><Copy size={16} />Salin Pesan & Tautan</button>
       <small>Tempel pesan ke WhatsApp atau aplikasi pesan pilihanmu. Nama tamu tidak disimpan sebagai daftar.</small>
+      <label htmlFor="invitation-url">Tautan saja</label>
+      <input id="invitation-url" readOnly value={result.url} onFocus={(event) => event.target.select()} />
+      <div className="guest-admin-buttons"><button className="button button-outline" onClick={() => copy(result.url, "Tautan")}><Copy size={16} />Salin Tautan</button><a className="button button-outline" href={result.url} target="_blank" rel="noopener noreferrer">Lihat Undangan<ArrowUpRight size={16} /></a></div>
     </section>}
   </>;
 }

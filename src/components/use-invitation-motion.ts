@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-/** Animate only on entry. Content stays readable if motion or JS is unavailable. */
 export function useInvitationMotion(opened: boolean, paused: boolean) {
   useEffect(() => {
     if (!opened || paused) return;

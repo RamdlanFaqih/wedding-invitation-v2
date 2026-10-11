@@ -4,7 +4,7 @@ import { ArrowUpRight, CalendarDays, Check, Gift, Heart, MapPin, Square, Play, S
 import { useEffect, useRef, useState } from "react";
 import { Botanical, LittleFlower } from "./botanical";
 import { Envelope } from "./envelope";
-import { Guestbook } from "./guestbook";
+// import { Guestbook } from "./guestbook";
 import { WeddingGift } from "./wedding-gift";
 import { PhotoGallery } from "./photo-gallery";
 import { Hero, CouplePortrait } from "./hero";
