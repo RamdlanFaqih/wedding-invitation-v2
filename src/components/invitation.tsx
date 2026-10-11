@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, CalendarDays, Check, Gift, Heart, MapPin, Square, Play, Share2, Sparkles } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Gift, Heart, MapPin, Square, Play, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Botanical, LittleFlower } from "./botanical";
 import { Envelope } from "./envelope";
@@ -46,7 +46,6 @@ export function Invitation() {
     }
   }
   const [active, setActive] = useState("beranda");
-  const [shareMessage, setShareMessage] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -60,24 +59,12 @@ export function Invitation() {
     return () => observer.disconnect();
   }, [opened]);
 
-  async function share() {
-    const url = new URL(window.location.href);
-    url.search = "";
-    url.hash = "";
-    try {
-      if (navigator.share) await navigator.share({ title: `The Wedding of ${coupleNames}`, text: "Dengan penuh cinta, kami mengundangmu ke hari bahagia kami.", url: url.toString() });
-      else { await navigator.clipboard.writeText(url.toString()); setShareMessage("Tautan undangan disalin."); }
-    } catch (error) {
-      if (!(error instanceof Error && error.name === "AbortError")) setShareMessage("Tautan belum tersalin. Silakan salin alamat halaman dari browser.");
-    }
-  }
-
   return (
     <>
       <audio ref={audio} src={invitationMusic} preload="none" loop onPlaying={() => setMusicPlaying(true)} onPause={() => setMusicPlaying(false)} onError={() => setMusicPlaying(false)} />
       {!opened && <Envelope onOpening={playMusic} onOpen={() => setOpened(true)} />}
       <div className={`invitation-site ${opened ? "is-revealed" : ""}`} inert={!opened} aria-hidden={!opened}>
-        <header className="site-header"><a href="#beranda" className="wordmark" aria-label="Kembali ke awal">{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></a><span className="header-note">THE BEGINNING OF OUR FOREVER</span><div className="header-actions"><button className="music-button" type="button" aria-label={musicPlaying ? "Hentikan musik" : "Putar musik"} aria-pressed={musicPlaying} onClick={toggleMusic}>{musicPlaying ? <Square size={16} /> : <Play size={16} />}<span>Musik</span></button><button className="share-button" onClick={share} aria-label="Bagikan undangan"><Share2 size={17} strokeWidth={1.4} /><span>Bagikan</span></button></div></header>
+        <header className="site-header"><a href="#beranda" className="wordmark" aria-label="Kembali ke awal">{wedding.bride.initial.toLowerCase()}<span>&</span>{wedding.groom.initial.toLowerCase()}<span className="wordmark-dot">.</span></a><span className="header-note">THE BEGINNING OF OUR FOREVER</span><div className="header-actions"><button className="music-button" type="button" aria-label={musicPlaying ? "Hentikan musik" : "Putar musik"} aria-pressed={musicPlaying} onClick={toggleMusic}>{musicPlaying ? <Square size={16} /> : <Play size={16} />}<span>Musik</span></button></div></header>
         <main>
           <Hero heading={heading} />
           {wedding.isPreview && <div className="preview-ribbon"><Sparkles size={13} /><span>Pratinjau · Cerita masih contoh.</span></div>}
@@ -115,7 +102,6 @@ export function Invitation() {
           { id: "hadiah", label: "Hadiah", icon: <Gift size={17} /> },
           // { id: "ucapan", label: "Ucapan", icon: <SendIcon /> },
         ].map((item) => <a key={item.id} href={`#${item.id}`} className={active === item.id ? "active" : ""} aria-current={active === item.id ? "location" : undefined}>{item.icon}<span>{item.label}</span></a>)}</nav>
-        {shareMessage && <div className="share-toast" role="status"><Check size={16} />{shareMessage}<button onClick={() => setShareMessage("")} aria-label="Tutup notifikasi">×</button></div>}
       </div>
     </>
   );
