@@ -12,7 +12,7 @@ export const wedding = {
   venue: "Sukahurip (Cipondok)",
   city: "Ciamis",
   address: "Dsn. Sukahurip (Cipondok), RT 02/RW 10, Winduraja, Kawali, Ciamis",
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=Sukahurip+Cipondok+RT+02+RW+10+Winduraja+Kawali+Ciamis",
+  mapUrl: "https://www.google.com/maps/place/Seblak+prasmanan+teh+egis/@-7.1700205,108.3647194,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6f4300352fd4db:0xb1f9afa412b175d7!8m2!3d-7.1700258!4d108.3672943!16s%2Fg%2F11w9d12qck?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D",
   // Keep numbers as strings to preserve leading zeros.
   giftAccounts: [
     { id: "seabank-asri", bank: "SeaBank", accountNumber: "901741015830", accountHolder: "Asri Safitri" },
@@ -24,7 +24,7 @@ export const wedding = {
       date: "2026-12-02T08:00:00+07:00", dateLabel: "Rabu, 2 Desember 2026",
       time: "08.00 WIB – selesai", venue: "Kediaman mempelai wanita",
       address: "Dsn. Sukahurip (Cipondok), RT 02/RW 10, Winduraja, Kawali, Ciamis",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Dusun+Sukahurip+Cipondok+RT+02+RW+10+Winduraja+Kawali+Ciamis",
+      mapUrl: "https://www.google.com/maps/place/Seblak+prasmanan+teh+egis/@-7.1700205,108.3647194,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6f4300352fd4db:0xb1f9afa412b175d7!8m2!3d-7.1700258!4d108.3672943!16s%2Fg%2F11w9d12qck?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D",
       description: "Mengikat janji suci, merayakan awal cerita bersama.", icon: "rings",
     },
     {
@@ -32,7 +32,7 @@ export const wedding = {
       date: "2026-12-05T08:00:00+07:00", dateLabel: "Sabtu, 5 Desember 2026",
       time: "08.00 WIB – selesai", venue: "Kediaman mempelai pria",
       address: "Dsn. Peuntas, RT 04/RW 02, Ds. Cilangkap, Kec. Buahdua, Sumedang",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Dusun+Peuntas+RT+04+RW+02+Cilangkap+Buahdua+Sumedang",
+      mapUrl: "https://www.google.com/maps/place/7XCP%2B262,+Cilangkap,+Kec.+Buahdua,+Kabupaten+Sumedang,+Jawa+Barat/@-6.7299822,107.9829407,17z/data=!3m1!4b1!4m5!3m4!1s0x2e692a40acbaca65:0xf7626cfd22e20884!8m2!3d-6.7299875!4d107.9855156?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D",
       description: "Melanjutkan kebahagiaan bersama keluarga dan orang terkasih.", icon: "flower",
     },
   ],
